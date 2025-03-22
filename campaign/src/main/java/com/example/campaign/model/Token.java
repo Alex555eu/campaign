@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
@@ -15,19 +14,19 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Seller {
+public class Token {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    private String name;
+    @OneToOne
+    private User user;
 
-    private String password;
+    @Column(unique = true, nullable = false)
+    private String jwtToken;
 
-    @Column(unique = true)
-    private String email;
+    private boolean isValid;
 
-    private BigDecimal emeraldBalance;
-
+    private String tokenType;
 }
