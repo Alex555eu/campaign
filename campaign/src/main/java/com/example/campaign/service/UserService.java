@@ -1,6 +1,7 @@
 package com.example.campaign.service;
 
 
+import com.example.campaign.exception.AuthenticationException;
 import com.example.campaign.model.User;
 import com.example.campaign.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -17,18 +18,14 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
     private final AuthenticationManager authenticationManager;
 
-    public User getSelf() {
-        return getUserFromSecurityContext();
-    }
 
-    private User getUserFromSecurityContext() {
+    public User getUserFromSecurityContext() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if ((authentication != null && authentication.getPrincipal() instanceof UserDetails)) {
             return (User) authentication.getPrincipal();
         }
-        return null;
+        throw new AuthenticationException("User not authenticated");
     }
 }

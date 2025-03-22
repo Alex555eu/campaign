@@ -22,7 +22,7 @@ public class UserController {
 
     @GetMapping(value = "")
     public ResponseEntity<String> getUserSelf() throws JsonProcessingException {
-        User user = userService.getSelf();
+        User user = userService.getUserFromSecurityContext();
         if (user != null) {
             String body = objectMapper.writeValueAsString(user);
             return ResponseEntity.ok().body(body);
