@@ -25,7 +25,7 @@ public class Campaign {
     private String campaignName;
 
     @ManyToOne
-    private Seller seller;
+    private User user;
 
     @ManyToMany
     private List<Keyword> keywords;
