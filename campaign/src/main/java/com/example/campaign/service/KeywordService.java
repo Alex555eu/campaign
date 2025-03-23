@@ -16,7 +16,7 @@ public class KeywordService {
     private final KeywordRepository keywordRepository;
 
     public List<Keyword> getAllMatchingKeywords(String query) {
-        return keywordRepository.findAllByKeywordContainingIgnoreCase(query);
+        return keywordRepository.findAllByKeywordStartingWithIgnoreCase(query);
     }
 
     public List<Keyword> getAllKeywordsByIds(List<UUID> ids) {

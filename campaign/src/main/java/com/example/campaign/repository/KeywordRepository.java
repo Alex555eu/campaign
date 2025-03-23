@@ -10,7 +10,7 @@ import java.util.UUID;
 @Repository
 public interface KeywordRepository extends JpaRepository<Keyword, UUID> {
 
-    List<Keyword> findAllByKeywordContainingIgnoreCase(String query);
+    List<Keyword> findAllByKeywordStartingWithIgnoreCase(String query);
 
     List<Keyword> findAllByIdIsIn(List<UUID> ids);
 
