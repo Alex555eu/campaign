@@ -43,4 +43,7 @@ public class Campaign {
 
     private Integer radius;
 
+    @OneToOne
+    private EmeraldWallet emeraldWallet;
+
 }

@@ -32,6 +32,9 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String emailAddress;
 
+    @OneToOne
+    private EmeraldWallet emeraldWallet;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

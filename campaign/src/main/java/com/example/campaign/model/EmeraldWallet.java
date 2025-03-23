@@ -23,6 +23,4 @@ public class EmeraldWallet {
 
     private BigDecimal balance;
 
-    @OneToOne
-    private User user;
 }
