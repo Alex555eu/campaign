@@ -1,0 +1,44 @@
+<div class="bg-container">
+    <div class="register-container">
+      <h2>Sign up</h2>
+  
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+        <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput id="firstName" formControlName="firstName" type="text" placeholder="Please enter your name">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput id="emailAddress" formControlName="emailAddress" type="email" placeholder="Enter your email">
+          @if (registerForm.get('emailAddress')?.invalid && registerForm.get('emailAddress')?.touched) {
+            <mat-error>Please enter correct email address.</mat-error>
+          }
+        </mat-form-field>
+
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput id="password" formControlName="password" type="password" placeholder="Enter password">
+          @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+            <mat-error>Please enter password (min. 4 characters).</mat-error>
+          }
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Repeat password</mat-label>
+          <input matInput id="repeatPassword" formControlName="repeatPassword" type="password" placeholder="Repeat password">
+          @if (registerForm.get('repeatPassword')?.invalid && registerForm.get('repeatPassword')?.touched) {
+            <mat-error>Passwords mismatch.</mat-error>
+          }
+        </mat-form-field>
+  
+        <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">
+          Sign up
+        </button>
+      </form>
+    </div>
+  </div>
+  
+  

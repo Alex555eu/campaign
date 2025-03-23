@@ -23,7 +23,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    private final CampaignService campaignService;
+    //private final CampaignService campaignService;
     private final EmeraldWalletService emeraldWalletService;
 
     public User getUserFromSecurityContext() {
@@ -35,14 +35,14 @@ public class UserService {
     }
 
     @Transactional
-    public void deleteUserAccount() {
-        User user = this.getUserFromSecurityContext();
-        List<Campaign> campaigns = campaignService.getAllUserCampaigns();
-        for(Campaign camp : campaigns) {
-            campaignService.deleteCampaign(camp.getId());
-        }
-        emeraldWalletService.deleteEmeraldWalletRecords(user.getEmeraldWallet());
-        userRepository.delete(user);
+    public void deleteUserAccount() { // Relying upon circular references is discouraged
+//        User user = this.getUserFromSecurityContext();
+//        List<Campaign> campaigns = campaignService.getAllUserCampaigns();
+//        for(Campaign camp : campaigns) {
+//            campaignService.deleteCampaign(camp.getId());
+//        }
+//        emeraldWalletService.deleteEmeraldWalletRecords(user.getEmeraldWallet());
+//        userRepository.delete(user);
     }
 
 }

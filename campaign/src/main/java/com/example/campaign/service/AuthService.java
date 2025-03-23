@@ -5,8 +5,10 @@ import com.example.campaign.dto.AuthenticationRequest;
 import com.example.campaign.dto.AuthenticationResponse;
 import com.example.campaign.dto.PostRefreshTokenRequest;
 import com.example.campaign.dto.RegisterRequest;
+import com.example.campaign.model.EmeraldWallet;
 import com.example.campaign.model.Token;
 import com.example.campaign.model.User;
+import com.example.campaign.repository.EmeraldWalletRepository;
 import com.example.campaign.repository.TokenRepository;
 import com.example.campaign.repository.UserRepository;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -22,6 +24,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -36,6 +39,7 @@ public class AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
+    private final EmeraldWalletRepository emeraldWalletRepository;
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
@@ -57,10 +61,16 @@ public class AuthService {
     }
 
     public AuthenticationResponse register(RegisterRequest request) {
+        EmeraldWallet emeraldWallet = EmeraldWallet.builder()
+                .balance(new BigDecimal("500.0"))
+                .build();
+        emeraldWalletRepository.save(emeraldWallet);
+
         User user = User.builder()
                 .firstName(request.firstName())
                 .emailAddress(request.emailAddress())
                 .password(passwordEncoder.encode(request.password()))
+                .emeraldWallet(emeraldWallet)
                 .build();
         userRepository.save(user);
 
