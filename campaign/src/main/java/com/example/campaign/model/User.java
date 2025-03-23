@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -32,10 +31,14 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String emailAddress;
 
+    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private EmeraldWallet emeraldWallet;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
+
     @Override
     public String getUsername() {
         return emailAddress;

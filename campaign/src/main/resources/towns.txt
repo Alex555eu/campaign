@@ -1,0 +1,63 @@
+Bełchatów
+Biała Podlaska
+Białystok
+Bydgoszcz
+Chełm
+Częstochowa
+Elbląg
+Ełk
+Gdańsk
+Gdynia
+Gliwice
+Gniezno
+Gorzów Wielkopolski
+Grudziądz
+Jelenia Góra
+Kalisz
+Katowice
+Kielce
+Konin
+Koszalin
+Kraków
+Kędzierzyn-Koźle
+Legnica
+Leszno
+Lublin
+Mielec
+Nowa Sól
+Nowy Sącz
+Nysa
+Olsztyn
+Opole
+Ostrołęka
+Oświęcim
+Pabianice
+Piotrków Trybunalski
+Piła
+Poznań
+Przemyśl
+Płock
+Radom
+Rybnik
+Rzeszów
+Siedlce
+Skarżysko-Kamienna
+Sopot
+Starachowice
+Suwałki
+Szczecin
+Tarnobrzeg
+Tarnów
+Tczew
+Toruń
+Tychy
+Warszawa
+Wałbrzych
+Wrocław
+Włocławek
+Zabrze
+Zamość
+Zielona Góra
+Łomża
+Łódź
+Świnoujście

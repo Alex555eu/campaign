@@ -34,11 +34,16 @@ public class Campaign {
 
     private BigDecimal campaignFund;
 
+    private String productUrl;
+
     private Boolean status;
 
     @ManyToOne
     private Town town;
 
     private Integer radius;
+
+    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private EmeraldWallet emeraldWallet;
 
 }

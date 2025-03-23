@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -15,12 +16,20 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class EmeraldWallet {
+public class TransactionHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    private BigDecimal balance;
+    private BigDecimal amount;
+
+    @ManyToOne
+    private EmeraldWallet emeraldWallet;
+
+    private LocalDateTime stamp;
+
+    @Enumerated(EnumType.STRING)
+    private TransactionType transactionType;
 
 }
