@@ -9,9 +9,12 @@ import com.example.campaign.repository.EmeraldWalletRepository;
 import com.example.campaign.repository.TransactionHistoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -50,6 +53,12 @@ public class EmeraldWalletService {
 
     public EmeraldWallet bidFromCampaign(EmeraldWallet campaignWallet, BigDecimal bidAmount) {
         return this.changeWalletBalance(campaignWallet, bidAmount.negate(), TransactionType.BID);
+    }
+
+    @Transactional
+    public void deleteEmeraldWalletRecords(EmeraldWallet emeraldWallet) {
+        List<TransactionHistory> list = transactionHistoryRepository.findAllByEmeraldWalletId(emeraldWallet.getId());
+        transactionHistoryRepository.deleteAll(list);
     }
 
     private EmeraldWallet changeWalletBalance(EmeraldWallet emeraldWallet, BigDecimal value, TransactionType type) {

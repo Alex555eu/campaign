@@ -43,7 +43,7 @@ public class Campaign {
 
     private Integer radius;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = true)
     private EmeraldWallet emeraldWallet;
 
 }

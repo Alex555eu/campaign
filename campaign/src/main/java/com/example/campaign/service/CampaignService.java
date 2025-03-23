@@ -5,6 +5,7 @@ import com.example.campaign.dto.PutCampaignRequest;
 import com.example.campaign.exception.EntityNotFoundException;
 import com.example.campaign.model.*;
 import com.example.campaign.repository.CampaignRepository;
+import com.example.campaign.repository.TransactionHistoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -103,8 +104,21 @@ public class CampaignService {
         throw new EntityNotFoundException("Requested data doesn't exist");
     }
 
+    @Transactional
     public void deleteCampaign(UUID campaignId) {
-        campaignRepository.deleteById(campaignId);
+        User user = userService.getUserFromSecurityContext();
+        Optional<Campaign> campaignOpt = campaignRepository.findById(campaignId);
+        if (campaignOpt.isPresent() &&
+            campaignOpt.get().getUser().getId().equals(user.getId())
+        ) {
+            Campaign campaign = campaignOpt.get();
+            emeraldWalletService.refundCampaign(user.getEmeraldWallet(), campaign.getEmeraldWallet());
+            emeraldWalletService.deleteEmeraldWalletRecords(campaign.getEmeraldWallet());
+            campaign.getKeywords().clear();
+            campaignRepository.delete(campaign);
+            return;
+        }
+        throw new EntityNotFoundException("Data to be deleted not found");
     }
 
 
