@@ -121,5 +121,17 @@ public class CampaignService {
         throw new EntityNotFoundException("Data to be deleted not found");
     }
 
+    public String bidFromCampaign(UUID campaignId) {
+        Optional<Campaign> campaignOpt = campaignRepository.findById(campaignId);
+        if (campaignOpt.isPresent()) {
+            Campaign campaign = campaignOpt.get();
+
+            emeraldWalletService.bidFromCampaign(campaign.getEmeraldWallet(), campaign.getBidAmount());
+
+            return campaign.getProductUrl();
+        }
+        throw new EntityNotFoundException("Campaign offline");
+    }
+
 
 }
