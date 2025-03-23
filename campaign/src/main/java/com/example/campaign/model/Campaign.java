@@ -34,6 +34,8 @@ public class Campaign {
 
     private BigDecimal campaignFund;
 
+    private String productUrl;
+
     private Boolean status;
 
     @ManyToOne
