@@ -4,10 +4,7 @@ import com.example.campaign.service.CampaignService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.UUID;
@@ -19,14 +16,10 @@ public class BidController {
 
     private final CampaignService campaignService;
 
-    @PutMapping("")
-    public ResponseEntity<Void> redirectToProduct(@RequestParam UUID campaignId) {
+    @PostMapping("")
+    public ResponseEntity<String> redirectToProduct(@RequestParam UUID campaignId) {
         String url = campaignService.bidFromCampaign(campaignId);
-
-        return ResponseEntity
-                .status(HttpStatus.SEE_OTHER)
-                .location(URI.create(url))
-                .build();
+        return ResponseEntity.ok(url);
     }
 
 
