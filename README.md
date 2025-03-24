@@ -36,7 +36,7 @@ Follow these steps to set up the application locally.
 Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/campaign.git
+git clone https://github.com/Alex555eu/campaign.git
 cd campaign
 ```
 
