@@ -3,7 +3,8 @@
       <h2>Sign in</h2>
   
       <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-        
+
+        <span>for testing:  user&#64;email.com</span>        
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
           <input matInput id="email" formControlName="email" type="email" placeholder="Enter your email">
@@ -11,7 +12,8 @@
             <mat-error>Please enter correct email address.</mat-error>
           }
         </mat-form-field>
-  
+
+        <span>for testing:  user</span>
         <mat-form-field appearance="fill">
           <mat-label>Password</mat-label>
           <input matInput id="password" formControlName="password" type="password" placeholder="Enter password">
