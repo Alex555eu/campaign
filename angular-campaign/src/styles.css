@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { 
+    height: 100%;
+}
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+    background-color: aliceblue;
+}
+
+
+mat-dialog-content {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    overflow-y: auto !important;
+    color: black !important;
+    max-height: 80vh !important;
+}
+
+.dialog-bg {
+    width: 600px;
+}
+
+.dialog-bg mat-form-field {
+    display: flex;
+    flex-direction: column;
+
+}

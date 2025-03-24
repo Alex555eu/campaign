@@ -1,0 +1,55 @@
+<div class="main-container">
+    <div class="header-container" *ngIf="userDetails">
+        <label>Welcome, <b>{{ userDetails.firstName }}</b></label>
+        <div class="balance-container">
+            <mat-icon>account_balance_wallet</mat-icon>
+            <label>{{ userDetails.emeraldWallet.balance }} em.</label>
+            <button mat-icon-button (click)="addToWallet()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+        <button mat-fab extended color="primary" (click)="newCampaign()">
+            <mat-icon>campaign</mat-icon>
+            New Campaign
+        </button>
+    </div>
+    <button class="logout-button" mat-stroked-button color="primary" (click)="logout()" color="warn">
+        <mat-icon>logout</mat-icon>
+        Sign out
+    </button>
+    <ng-container *ngFor="let campaign of campaigns">
+        <mat-card class="example-card" appearance="outlined">
+            <mat-card-header>
+              <mat-card-title>{{campaign.campaignName}}</mat-card-title>
+              @if (campaign.status){
+                <mat-card-subtitle style="color: lightgreen;">online</mat-card-subtitle>
+              } @else {
+                <mat-card-subtitle style="color: gray;">offline</mat-card-subtitle>
+              }
+            </mat-card-header>
+            <mat-card-content>
+                <p class="keywords-container">
+                    <ng-container  *ngFor="let keyword of campaign.keywords">
+                        <span>{{keyword.keyword}}</span> 
+                    </ng-container>
+                </p>
+                <p>Product URL: {{ campaign.productUrl }}</p>
+                <p>Town: {{ campaign.town.name }}</p>
+                <p>Radius: {{ campaign.radius }} km</p>
+                <p>Total campaign fund: {{ campaign.campaignFund }} em.</p>
+                <p>Bid amount: {{ campaign.bidAmount }} em.</p>
+                <p>Already spent: {{ campaign.campaignFund - campaign.emeraldWallet.balance }} em.</p>
+                <p style="font-size: small;">Promoted product url
+                    <b>(every use drains campaign fund)</b>:
+                </p>
+                <a [href]="origin + 'redirect?key=' + campaign.id">
+                    {{ origin }}redirect?key={{ campaign.id }}
+                </a>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button (click)="editCampaign(campaign)">EDIT</button>
+              <button mat-button color="warn" (click)="deleteCampaign(campaign)">DELETE</button>
+            </mat-card-actions>
+          </mat-card>
+    </ng-container>
+</div>

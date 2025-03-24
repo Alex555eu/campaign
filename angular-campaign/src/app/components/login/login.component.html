@@ -1,0 +1,35 @@
+<div class="bg-container">
+    <div class="login-container">
+      <h2>Sign in</h2>
+  
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+
+        <span>for testing:  user&#64;email.com</span>        
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput id="email" formControlName="email" type="email" placeholder="Enter your email">
+          @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+            <mat-error>Please enter correct email address.</mat-error>
+          }
+        </mat-form-field>
+
+        <span>for testing:  user</span>
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput id="password" formControlName="password" type="password" placeholder="Enter password">
+          @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+            <mat-error>Please enter password.</mat-error>
+          }
+        </mat-form-field>
+  
+        <button mat-raised-button color="accent" type="submit" [disabled]="loginForm.invalid">
+          Sign in
+        </button>
+      </form>
+  
+      <button mat-raised-button color="primary" (click)="onRegister()">
+        Sign up
+      </button>  
+    </div>
+  </div>
+  
