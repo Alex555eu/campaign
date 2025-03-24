@@ -16,7 +16,7 @@ mat-dialog-content {
     align-items: center !important;
     overflow-y: auto !important;
     color: black !important;
-    max-height: 80vh !important;
+    max-height: 100vh !important;
 }
 
 .dialog-bg {
@@ -26,5 +26,4 @@ mat-dialog-content {
 .dialog-bg mat-form-field {
     display: flex;
     flex-direction: column;
-
 }
