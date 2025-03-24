@@ -11,11 +11,12 @@ export namespace ApiPaths {
         GET_ALL_USER_CAMPAIGNS = '/api/v1/campaign',
         POST_USER_CAMPAIGN = '/api/v1/campaign',
         PUT_USER_CAMPAIGN = '/api/v1/campaign',
-        DELETE_USER_CAMPAIGN = '/api/v1/campaign'
+        DELETE_USER_CAMPAIGN = '/api/v1/campaign?campaignId='
     }
 
     export enum UserPaths {
         GET_USER = '/api/v1/user',
+        RECHARGE_USER_EMERALD_ACCOUNT = '/api/v1/user/recharge-emeralds?amount=',
         // DELETE_USER_ACCOUNT = '/api/v1/user'
     }
 
@@ -28,7 +29,7 @@ export namespace ApiPaths {
     } 
 
     export enum BidPaths {
-        BID_PRODUCT = '/api/v1/bid'
+        BID_PRODUCT = '/api/v1/bid?campaignId='
     }
     
 }
