@@ -1,0 +1,27 @@
+services:
+  
+  angular:
+    build:
+      context: ./angular-campaign
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+    depends_on:
+      - spring
+    restart: always  
+
+  spring:
+    build:
+      context: ./campaign
+      dockerfile: Dockerfile
+    ports:
+      - "9090:9090"
+    networks:
+      - app-network
+    restart: always
+
+
+networks:
+  app-network:
