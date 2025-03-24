@@ -1,0 +1,74 @@
+<mat-dialog-content>
+    <div class="dialog-bg">
+        <span>New Campaign</span>
+
+          <form (ngSubmit)="onSubmit()" #campaignForm="ngForm">
+            
+            <!-- Campaign Name -->
+            <mat-form-field appearance="fill">
+              <mat-label>Campaign Name</mat-label>
+              <input matInput placeholder="Enter campaign name" [(ngModel)]="campaign.campaignName" name="campaignName" required>
+            </mat-form-field>
+      
+            <!-- Keywords -->
+            <mat-form-field appearance="fill">
+                <mat-label>Look for keywords</mat-label>
+                <input matInput [formControl]="keywordCtrl" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let keyword of filteredKeywords | async" [value]="keyword.keyword" (onSelectionChange)="addKeyword(keyword)">
+                    {{ keyword.keyword }}
+                  </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+              
+              <!-- Selected keywords -->
+              <div *ngIf="selectedKeywords.length > 0">
+                <mat-chip-listbox>
+                  <mat-chip-row *ngFor="let keyword of selectedKeywords" [value]="keyword" [removable]="true" (removed)="removeKeyword(keyword)">
+                    {{ keyword.keyword }}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip-row>
+                </mat-chip-listbox>
+              </div>
+              
+      
+            <!-- Bid Amount -->
+            <mat-form-field appearance="fill">
+              <mat-label>Bid Amount</mat-label>
+              <input matInput type="number" min="1" step="1" [(ngModel)]="campaign.bidAmount" name="bidAmount" required>
+            </mat-form-field>
+      
+            <!-- Campaign Fund -->
+            <mat-form-field appearance="fill">
+              <mat-label>Campaign Fund</mat-label>
+              <input matInput type="number" min="0" step="1" [(ngModel)]="campaign.campaignFund" name="campaignFund" required>
+            </mat-form-field>
+      
+            <!-- Product URL -->
+            <mat-form-field appearance="fill">
+              <mat-label>Product URL</mat-label>
+              <input matInput placeholder="Enter product URL" [(ngModel)]="campaign.productUrl" name="productUrl" required>
+            </mat-form-field>
+      
+            <!-- Status -->
+            <mat-checkbox [(ngModel)]="campaign.status" name="status">online</mat-checkbox>
+      
+            <!-- Town -->
+            <mat-form-field appearance="fill">
+              <mat-label>Town</mat-label>
+              <mat-select [(ngModel)]="campaign.townId" name="town" required>
+                <mat-option *ngFor="let town of availableTowns" [value]="town.id">{{ town.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+      
+            <!-- Radius -->
+            <mat-form-field appearance="fill">
+              <mat-label>Radius</mat-label>
+              <input matInput type="number" [(ngModel)]="campaign.radius" name="radius" required>
+            </mat-form-field>
+      
+            <button mat-raised-button color="primary" type="submit" [disabled]="!campaignForm.form.valid">Create</button>
+          </form>
+
+      </div>      
+</mat-dialog-content>
