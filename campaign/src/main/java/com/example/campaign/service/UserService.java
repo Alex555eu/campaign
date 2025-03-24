@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @AllArgsConstructor
@@ -32,6 +33,11 @@ public class UserService {
             return (User) authentication.getPrincipal();
         }
         throw new AuthenticationException("User not authenticated");
+    }
+
+    public EmeraldWallet depositEmeraldsIntoUserWallet(BigDecimal amount) {
+        User user = this.getUserFromSecurityContext();
+        return this.emeraldWalletService.depositEmeralds(user.getEmeraldWallet(), amount);
     }
 
     @Transactional
