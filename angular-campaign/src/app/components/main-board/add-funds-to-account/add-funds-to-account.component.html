@@ -1,0 +1,14 @@
+<mat-dialog-content>
+    <div class="dialog-bg">
+        <span>Recharge your wallet</span>
+        <form (ngSubmit)="onSubmit()" #campaignForm="ngForm">
+            <mat-form-field appearance="fill">
+                <mat-label>Amount</mat-label>
+                    <mat-select [(ngModel)]="selectedFund" name="town" required>
+                        <mat-option *ngFor="let fund of availableFunds" [value]="fund">{{ fund }} em.</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!campaignForm.form.valid">Recharge</button>
+        </form>
+    </div>      
+</mat-dialog-content>
