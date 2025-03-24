@@ -91,6 +91,7 @@ public class CampaignService {
 
             campaign.setCampaignName(request.campaignName());
             campaign.setRadius(request.radius());
+            campaign.setKeywords(keywords);
             campaign.setTown(townOpt.get());
             campaign.setStatus(request.status());
             campaign.setBidAmount(request.bidAmount());

@@ -1,14 +1,7 @@
 package com.example.campaign;
 
-import com.example.campaign.model.EmeraldWallet;
-import com.example.campaign.model.Keyword;
-import com.example.campaign.model.Town;
-import com.example.campaign.model.User;
-import com.example.campaign.repository.EmeraldWalletRepository;
-import com.example.campaign.repository.KeywordRepository;
-import com.example.campaign.repository.TownRepository;
-import com.example.campaign.repository.UserRepository;
-import com.example.campaign.service.UserService;
+import com.example.campaign.model.*;
+import com.example.campaign.repository.*;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -20,6 +13,8 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.Stream;
 
 @AllArgsConstructor
@@ -30,6 +25,9 @@ public class StartupApplicationListener implements ApplicationListener<Applicati
     private final EmeraldWalletRepository emeraldWalletRepository;
     private final KeywordRepository keywordRepository;
     private final TownRepository townRepository;
+    private final CampaignRepository campaignRepository;
+    private final TransactionHistoryRepository transactionHistoryRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     @SneakyThrows
@@ -62,6 +60,53 @@ public class StartupApplicationListener implements ApplicationListener<Applicati
                     .filter(line -> !line.isEmpty())
                     .forEach(this::loadTownToDatabase);
         }
+
+
+        Keyword keyword = Keyword.builder()
+                .keyword("elegance")
+                .build();
+        keywordRepository.save(keyword);
+
+        Town town = Town.builder()
+                .name("Olkusz")
+                .build();
+        townRepository.save(town);
+
+        EmeraldWallet emeraldWallet2 = EmeraldWallet.builder()
+                .balance(new BigDecimal("100"))
+                .build();
+        emeraldWalletRepository.save(emeraldWallet2);
+
+        Campaign campaign = Campaign.builder()
+                .status(true)
+                .radius(5)
+                .campaignFund(new BigDecimal("100"))
+                .campaignName("My Awesome Campaign for Google.com")
+                .keywords(List.of(keyword))
+                .productUrl("https://google.com")
+                .bidAmount(new BigDecimal("1"))
+                .emeraldWallet(emeraldWallet2)
+                .user(user)
+                .town(town)
+                .build();
+        campaignRepository.save(campaign);
+
+        TransactionHistory transactionHistory = TransactionHistory.builder()
+                .stamp(LocalDateTime.now())
+                .transactionType(TransactionType.PURCHASE)
+                .amount(new BigDecimal("100"))
+                .emeraldWallet(emeraldWallet)
+                .build();
+        transactionHistoryRepository.save(transactionHistory);
+
+
+        TransactionHistory transactionHistory2 = TransactionHistory.builder()
+                .stamp(LocalDateTime.now())
+                .transactionType(TransactionType.DEPOSIT)
+                .amount(new BigDecimal("100"))
+                .emeraldWallet(emeraldWallet2)
+                .build();
+        transactionHistoryRepository.save(transactionHistory2);
 
 
     }

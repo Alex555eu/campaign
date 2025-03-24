@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class KeywordService {
         return keywordRepository.findAllByKeywordStartingWithIgnoreCase(query);
     }
 
-    public List<Keyword> getAllKeywordsByIds(List<UUID> ids) {
+    public List<Keyword> getAllKeywordsByIds(Set<UUID> ids) {
         return keywordRepository.findAllByIdIsIn(ids);
     }
 
