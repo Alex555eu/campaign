@@ -124,7 +124,9 @@ public class CampaignService {
 
     public String bidFromCampaign(UUID campaignId) {
         Optional<Campaign> campaignOpt = campaignRepository.findById(campaignId);
-        if (campaignOpt.isPresent()) {
+        if (campaignOpt.isPresent() &&
+                campaignOpt.get().getStatus()
+        ) {
             Campaign campaign = campaignOpt.get();
 
             emeraldWalletService.bidFromCampaign(campaign.getEmeraldWallet(), campaign.getBidAmount());
