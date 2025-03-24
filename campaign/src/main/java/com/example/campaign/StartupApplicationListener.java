@@ -10,8 +10,10 @@ import org.springframework.lang.NonNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -47,20 +49,25 @@ public class StartupApplicationListener implements ApplicationListener<Applicati
                 .build();
         userRepository.save(user);
 
-        try (Stream<String> lines = Files.lines(Paths.get("src/main/resources/keywords.txt"))) {
+        Path filePath = Paths.get(getClass().getClassLoader().getResource("keywords.txt").toURI());
+        try (Stream<String> lines = Files.lines(filePath)) {
             lines
                     .map(String::trim)
                     .filter(line -> !line.isEmpty())
                     .forEach(this::loadKeywordToDatabase);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        try (Stream<String> lines = Files.lines(Paths.get("src/main/resources/towns.txt"))) {
+        Path filePath2 = Paths.get(getClass().getClassLoader().getResource("towns.txt").toURI());
+        try (Stream<String> lines = Files.lines(filePath2)) {
             lines
                     .map(String::trim)
                     .filter(line -> !line.isEmpty())
                     .forEach(this::loadTownToDatabase);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
 
         Keyword keyword = Keyword.builder()
                 .keyword("elegance")
@@ -99,7 +106,6 @@ public class StartupApplicationListener implements ApplicationListener<Applicati
                 .build();
         transactionHistoryRepository.save(transactionHistory);
 
-
         TransactionHistory transactionHistory2 = TransactionHistory.builder()
                 .stamp(LocalDateTime.now())
                 .transactionType(TransactionType.DEPOSIT)
@@ -107,8 +113,6 @@ public class StartupApplicationListener implements ApplicationListener<Applicati
                 .emeraldWallet(emeraldWallet2)
                 .build();
         transactionHistoryRepository.save(transactionHistory2);
-
-
     }
 
     private void loadKeywordToDatabase(String value) {
